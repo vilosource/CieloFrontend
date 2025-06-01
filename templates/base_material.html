@@ -1,0 +1,482 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en" data-topbar-color="brand">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}CIELO Dashboard{% endblock %} | CIELO</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'material_theme/images/favicon.ico' %}">
+
+		<!-- App css -->
+		<link href="{% static 'material_theme/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'material_theme/css/app.min.css' %}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+
+		<!-- icons -->
+		<link href="{% static 'material_theme/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+		<!-- Theme Config Js -->
+		<script src="{% static 'material_theme/js/config.js' %}"></script>
+
+        <!-- Custom styles for multi-level sidebar -->
+        <style>
+            .nav-third-level {
+                padding-left: 0;
+                margin: 0;
+            }
+            
+            .nav-third-level li {
+                list-style: none;
+            }
+            
+            .nav-third-level li a {
+                display: block;
+                padding: 8px 15px 8px 45px;
+                color: #6c757d;
+                font-size: 13px;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-third-level li a:hover {
+                background-color: rgba(114, 124, 245, 0.1);
+                color: #727cf5;
+            }
+            
+            .nav-third-level li a.active {
+                background-color: #727cf5;
+                color: #fff;
+            }
+            
+            .nav-third-level li a i {
+                font-size: 12px;
+                width: 16px;
+            }
+            
+            .nav-second-level .menu-arrow {
+                float: right;
+                margin-top: 2px;
+            }
+        </style>
+
+        {% block extra_head %}{% endblock %}
+
+    </head>
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            
+            <!-- Topbar Start -->
+            <div class="navbar-custom">
+                <div class="container-fluid">
+    
+                    <ul class="list-unstyled topnav-menu float-end mb-0">
+
+                        <li class="d-none d-lg-block">
+                            <form class="app-search">
+                                <div class="app-search-box dropdown">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="Search..." id="top-search">
+                            
+                                        <button class="btn" type="submit">
+                                            <i class="fe-search"></i>
+                                        </button>
+                                    </div>
+                                    {# Search dropdown content can be added here if needed #}
+                                </div>
+                            </form>
+                        </li>
+    
+                        <li class="dropdown d-inline-block d-lg-none">
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <i class="fe-search noti-icon"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-lg dropdown-menu-end p-0">
+                                <form class="p-3">
+                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Search">
+                                </form>
+                            </div>
+                        </li>
+    
+                        <li class="d-none d-md-inline-block">
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"  id="light-dark-mode" href="#">
+                                <i class="fe-moon noti-icon"></i>
+                            </a>
+                        </li>
+
+                        <li class="dropdown d-none d-lg-inline-block">
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="#">
+                                <i class="fe-maximize noti-icon"></i>
+                            </a>
+                        </li>
+    
+                        {# Other topbar items like Mega Menu, Language, Notifications can be added here from task-list.html if desired #}
+    
+                        <li class="dropdown notification-list topbar-dropdown">
+                            <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <img src="{% static 'material_theme/images/users/avatar-1.jpg' %}" alt="user-image" class="rounded-circle">
+                                <span class="pro-user-name ms-1">
+                                    {% if user.is_authenticated %}{{ user.username }}{% else %}Guest{% endif %} <i class="mdi mdi-chevron-down"></i> 
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+                                <!-- item-->
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome !</h6>
+                                </div>                                {% if user.is_authenticated %}
+                                <!-- item-->
+                                <a href="/users/profile/" class="dropdown-item notify-item">
+                                    <i class="ri-settings-3-line"></i>
+                                    <span>Profile</span>
+                                </a>
+                                <!-- item-->
+                                <a href="/users/change-password/" class="dropdown-item notify-item">
+                                    <i class="ri-settings-3-line"></i>
+                                    <span>Change Password</span>
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <!-- item-->
+                                <a href="/users/logout/" class="dropdown-item notify-item">
+                                    <i class="ri-logout-box-line"></i>
+                                    <span>Logout</span>
+                                </a>
+                                {% else %}
+                                 <a href="/users/login/" class="dropdown-item notify-item">
+                                    <i class="ri-login-box-line"></i>
+                                    <span>Login</span>
+                                </a>
+                                {% endif %}
+    
+                            </div>
+                        </li>
+    
+                        <li class="dropdown notification-list">
+                            <a class="nav-link waves-effect waves-light" data-bs-toggle="offcanvas" href="#theme-settings-offcanvas" >
+                                <i class="fe-settings noti-icon"></i>
+                            </a>
+                        </li>
+    
+                    </ul>
+
+                    <!-- LOGO -->
+                    <div class="logo-box">
+                        <a href="/" class="logo logo-dark text-center">
+                            <span class="logo-sm">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="30">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="40">
+                            </span>
+                        </a>
+
+                        <a href="/" class="logo logo-light text-center">
+                            <span class="logo-sm">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="30">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="40">
+                            </span>
+                        </a>
+                    </div>
+    
+                    <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+                        <li>
+                            <button class="button-menu-mobile waves-effect waves-light">
+                                <i class="fe-menu"></i>
+                            </button>
+                        </li>
+
+                        <li>
+                            <!-- Mobile menu toggle (Horizontal Layout)-->
+                            <a class="navbar-toggle nav-link" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                                <div class="lines">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </a>
+                            <!-- End mobile menu toggle-->
+                        </li>   
+            
+                        {# Other topnav left items like "Create New", "Mega Menu" can be added here if desired #}
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- Topbar End -->
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="left-side-menu">
+
+                <!-- LOGO -->
+                <div class="logo-box">                        <a href="/" class="logo logo-dark text-center">
+                            <span class="logo-sm">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="30">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="35">
+                            </span>
+                        </a>
+
+                        <a href="/" class="logo logo-light text-center">
+                            <span class="logo-sm">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="30">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="35">
+                            </span>
+                        </a>
+                </div>
+
+                <div class="h-100" data-simplebar>
+
+                    <!-- User box -->
+                    {% if user.is_authenticated %}
+                    <div class="user-box text-center">
+                        <img src="{% static 'material_theme/images/users/avatar-1.jpg' %}" alt="user-img" title="{{ user.username }}"
+                            class="rounded-circle avatar-md">
+                        <div class="dropdown">
+                            <a href="#" class="text-reset dropdown-toggle h5 mt-2 mb-1 d-block"
+                                data-bs-toggle="dropdown">{{ user.username }}</a>
+                            <div class="dropdown-menu user-pro-dropdown">
+                                <!-- item-->
+                                <a href="#" class="dropdown-item notify-item">
+                                    <i class="fe-user me-1"></i>
+                                    <span>My Account</span>
+                                </a>
+                                <!-- item-->
+                                <a href="/users/change-password/" class="dropdown-item notify-item">
+                                    <i class="fe-settings me-1"></i>
+                                    <span>Change Password</span>
+                                </a>
+                                <!-- item-->
+                                <a href="/users/logout/" class="dropdown-item notify-item">
+                                    <i class="fe-log-out me-1"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-reset">{% if user.is_superuser %}Administrator{% else %}User{% endif %}</p>
+                    </div>
+                    {% endif %}
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <ul id="side-menu">
+                            <li class="menu-title">CIELO Navigation</li>
+                            {% for item in cielo_navigation_items %}
+                                {% if item.sub_items %}
+                                    <li>
+                                        <a href="#sidebar-cielo-{{ forloop.counter }}" data-bs-toggle="collapse" aria-expanded="false" aria-controls="sidebar-cielo-{{ forloop.counter }}" class="waves-effect">
+                                            {% if item.icon_class %}<i class="{{ item.icon_class }}"></i>{% else %}<i class="mdi mdi-folder-outline"></i>{% endif %}
+                                            <span> {{ item.label }} </span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="sidebar-cielo-{{ forloop.counter }}">
+                                            <ul class="nav-second-level">
+                                                {% for sub_item in item.sub_items %}
+                                                    {% if sub_item.sub_items %}
+                                                        <li>
+                                                            <a href="#sidebar-sub-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" data-bs-toggle="collapse" aria-expanded="false" aria-controls="sidebar-sub-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" class="waves-effect">
+                                                                {% if sub_item.icon_class %}<i class="{{ sub_item.icon_class }} me-1"></i>{% endif %}
+                                                                {{ sub_item.label }}
+                                                                <span class="menu-arrow"></span>
+                                                            </a>
+                                                            <div class="collapse" id="sidebar-sub-{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
+                                                                <ul class="nav-third-level">
+                                                                    {% for third_item in sub_item.sub_items %}
+                                                                    <li>
+                                                                        <a href="{{ third_item.url }}" class="{% if request.path == third_item.url %}active{% endif %}">
+                                                                            {% if third_item.icon_class %}<i class="{{ third_item.icon_class }} me-1"></i>{% endif %}
+                                                                            {{ third_item.label }}
+                                                                        </a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    {% else %}
+                                                        <li>
+                                                            <a href="{{ sub_item.url }}" class="{% if request.path == sub_item.url %}active{% endif %}">
+                                                                {% if sub_item.icon_class %}<i class="{{ sub_item.icon_class }} me-1"></i>{% endif %}
+                                                                {{ sub_item.label }}
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{{ item.url }}" class="waves-effect {% if request.path == item.url %}active{% endif %}">
+                                            {% if item.icon_class %}<i class="{{ item.icon_class }}"></i>{% else %}<i class="mdi mdi-file-document-outline"></i>{% endif %}
+                                            <span> {{ item.label }} </span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% empty %}
+                                <li>
+                                    <a href="#" class="waves-effect">
+                                        <i class="mdi mdi-alert-circle-outline"></i>
+                                        <span> No app items </span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- End Sidebar -->
+
+                    <div class="clearfix"></div>
+
+                </div>
+                <!-- Sidebar -left -->
+
+            </div>
+            <!-- Left Sidebar End -->
+      
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        {% block page_title_box %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box page-title-box-alt">
+                                    <h4 class="page-title">{% block page_title %}{{ block.super }}{% endblock %}</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">CIELO</a></li>
+                                            {% block breadcrumb %}{% endblock %}
+                                            {# <li class="breadcrumb-item active">Tasks List</li> #}
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                        {% endblock %}
+                        <!-- end page title --> 
+
+                        {% block content %}
+                        <!-- Default content if not overridden -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Welcome to CIELO</h4>
+                                        <p class="text-muted">This is the main content area. Override this block in child templates.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock %}
+                        
+                    </div> <!-- container-fluid -->
+
+                </div> <!-- content -->
+
+                <!-- Footer Start -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <script>document.write(new Date().getFullYear())</script> &copy; CIELO by <a href="">ViloSource</a> 
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-end footer-links d-none d-sm-block">
+                                    <a href="javascript:void(0);">About</a>
+                                    <a href="javascript:void(0);">Support</a>
+                                    <a href="javascript:void(0);">Contact Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
+
+        <!-- Right Sidebar for Theme Settings -->
+        {# This is taken from task-list.html, include if you want the theme customizer #}
+        {# You might want to remove this or make it conditional for production #}
+        <div class="offcanvas offcanvas-end right-bar" tabindex="-1" id="theme-settings-offcanvas" data-bs-scroll="true" data-bs-backdrop="true" >
+            <div data-simplebar class="h-100">
+                <ul class="nav nav-tabs nav-bordered nav-justified" role="tablist">
+                    <li class="nav-item"><a class="nav-link py-2 active" data-bs-toggle="tab" href="#settings-tab" role="tab"><i class="mdi mdi-cog-outline d-block font-22 my-1"></i></a></li>
+                </ul>
+                <div class="tab-content pt-0">
+                    <div class="tab-pane active" id="settings-tab" role="tabpanel">
+                        <h6 class="fw-medium px-3 m-0 py-2 font-13 text-uppercase bg-light"><span class="d-block py-1">Theme Settings</span></h6>
+                        <div class="p-3">
+                            <div class="alert alert-warning" role="alert"><strong>Customize </strong> the overall color scheme, sidebar menu, etc.</div>
+                            <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Color Scheme</h6>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-bs-theme" value="light" id="light-mode-check" checked><label class="form-check-label" for="light-mode-check">Light Mode</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-bs-theme" value="dark" id="dark-mode-check"><label class="form-check-label" for="dark-mode-check">Dark Mode</label></div>
+                            <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Width</h6>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-layout-width" value="fluid" id="fluid-check" checked><label class="form-check-label" for="fluid-check">Fluid</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-layout-width" value="boxed" id="boxed-check"><label class="form-check-label" for="boxed-check">Boxed</label></div>
+                            <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Topbar</h6>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-topbar-color" value="light" id="lighttopbar-check"><label class="form-check-label" for="lighttopbar-check">Light</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-topbar-color" value="dark" id="darktopbar-check" checked><label class="form-check-label" for="darktopbar-check">Dark</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-topbar-color" value="brand" id="brandtopbar-check"><label class="form-check-label" for="brandtopbar-check">brand</label></div>
+                            <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Menus Positon <small>(Leftsidebar and Topbar)</small></h6>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-layout-position" value="fixed" id="fixed-check" checked><label class="form-check-label" for="fixed-check">Fixed</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-layout-position" value="scrollable" id="scrollable-check"><label class="form-check-label" for="scrollable-check">Scrollable</label></div>
+                            <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Menu Color</h6>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-menu-color" value="light" id="light-check" checked><label class="form-check-label" for="light-check">Light</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-menu-color" value="dark" id="dark-check"><label class="form-check-label" for="dark-check">Dark</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-menu-color" value="brand" id="brand-check"><label class="form-check-label" for="brand-check">Brand</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-menu-color" value="gradient" id="gradient-check"><label class="form-check-label" for="gradient-check">Gradient</label></div>
+                            <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Left Sidebar Size</h6>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-sidebar-size" value="default" id="default-size-check" checked><label class="form-check-label" for="default-size-check">Default</label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-sidebar-size" value="condensed" id="condensed-check"><label class="form-check-label" for="condensed-check">Condensed <small>(Extra Small size)</small></label></div>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-sidebar-size" value="compact" id="compact-check"><label class="form-check-label" for="compact-check">Compact <small>(Small size)</small></label></div>
+                            <h6 class="fw-medium font-14 mt-4 mb-2 pb-1">Sidebar User Info</h6>
+                            <div class="form-check form-switch mb-1"><input class="form-check-input" type="checkbox" name="data-sidebar-user" value="true" id="sidebaruser-check"><label class="form-check-label" for="sidebaruser-check">Enable</label></div>
+                            <div class="d-grid mt-4"><button class="btn btn-primary" id="resetBtn">Reset to Default</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Right-bar -->
+
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+
+        <!-- Vendor js -->
+        <script src="{% static 'material_theme/js/vendor.min.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'material_theme/js/app.min.js' %}"></script>
+
+        {% block extra_js %}{% endblock %}
+        
+    </body>
+</html>

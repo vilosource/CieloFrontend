@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-topbar-color="brand">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}CIELO{% endblock %} | CIELO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="CIELO - Cloud Infrastructure and Environment Lifecycle Orchestrator" name="description" />
+    <meta content="CIELO Team" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'material_theme/images/favicon.ico' %}">
+
+    <!-- App css -->
+    <link href="{% static 'material_theme/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'material_theme/css/app.min.css' %}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+
+    <!-- icons -->
+    <link href="{% static 'material_theme/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Theme Config Js -->
+    <script src="{% static 'material_theme/js/config.js' %}"></script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="auth-fluid-pages pb-0">
+
+    <div class="auth-fluid">
+        <!-- Auth fluid right content -->
+        <div class="auth-fluid-right bg-transparent">
+            <div class="auth-user-testimonial">
+                <h3 class="mb-3 text-white">{% block testimonial_title %}Efficient & Powerful!{% endblock %}</h3>
+                <p class="lead fw-normal">
+                    <i class="mdi mdi-format-quote-open"></i> 
+                    {% block testimonial_content %}
+                    CIELO provides comprehensive cloud infrastructure management with intuitive design and powerful features. 
+                    From Azure resource monitoring to automated lifecycle management - CIELO streamlines your cloud operations 
+                    and helps you maintain control over your infrastructure with ease.
+                    {% endblock %}
+                    <i class="mdi mdi-format-quote-close"></i>
+                </p>
+                <h5 class="text-white">
+                    {% block testimonial_author %}- CIELO User{% endblock %}
+                </h5>
+            </div> <!-- end auth-user-testimonial-->
+        </div>
+        <!-- end Auth fluid right content -->
+
+        <!--Auth fluid left content -->
+        <div class="auth-fluid-form-box">
+            <div class="align-items-center d-flex h-100">
+                <div class="card-body">
+
+                    <!-- Logo -->
+                    <div class="auth-brand text-center text-lg-start">
+                        <div class="auth-logo">
+                            <a href="/users/login/" class="logo logo-dark text-center">
+                                <span class="logo-lg">
+                                    <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="40">
+                                </span>
+                            </a>
+
+                            <a href="/users/login/" class="logo logo-light text-center">
+                                <span class="logo-lg">
+                                    <img src="{% static 'material_theme/images/cielo_logo_transparent.png' %}" alt="CIELO" height="40">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    {% block content %}{% endblock %}
+
+                </div> <!-- end .card-body -->
+            </div> <!-- end .align-items-center.d-flex.h-100-->
+        </div>
+        <!-- end auth-fluid-form-box-->
+
+    </div>
+    <!-- end auth-fluid-->
+
+    <!-- Vendor js -->
+    <script src="{% static 'material_theme/js/vendor.min.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'material_theme/js/app.min.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

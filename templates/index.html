@@ -1,0 +1,235 @@
+{% extends "base_material.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Dashboard</li>
+{% endblock %}
+
+{% block content %}
+<!-- Welcome Section -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-sm bg-primary rounded-circle me-3">
+                        <i class="mdi mdi-home-variant font-18 text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="header-title mb-1">Welcome to CIELO</h4>
+                        <p class="text-muted mb-0">Your cloud infrastructure management dashboard</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-sm bg-success rounded-circle me-3">
+                        <i class="mdi mdi-server font-18 text-white"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="font-size-16 mb-1">24</h5>
+                        <p class="text-muted mb-0">Active Servers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-sm bg-info rounded-circle me-3">
+                        <i class="mdi mdi-cloud font-18 text-white"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="font-size-16 mb-1">12</h5>
+                        <p class="text-muted mb-0">Virtual Machines</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-sm bg-warning rounded-circle me-3">
+                        <i class="mdi mdi-database font-18 text-white"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="font-size-16 mb-1">1.2TB</h5>
+                        <p class="text-muted mb-0">Storage Used</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-sm bg-danger rounded-circle me-3">
+                        <i class="mdi mdi-alert-circle font-18 text-white"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="font-size-16 mb-1">3</h5>
+                        <p class="text-muted mb-0">Alerts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity and Quick Actions -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Activity</h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline-alt">
+                    <div class="timeline-item">
+                        <i class="mdi mdi-circle bg-info timeline-icon"></i>
+                        <div class="timeline-item-info">
+                            <h5 class="font-size-15 mb-1">Server vm-web-01 restarted</h5>
+                            <p class="text-muted mb-0">Successfully restarted at 10:30 AM</p>
+                            <small class="text-muted">2 hours ago</small>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <i class="mdi mdi-circle bg-success timeline-icon"></i>
+                        <div class="timeline-item-info">
+                            <h5 class="font-size-15 mb-1">New backup completed</h5>
+                            <p class="text-muted mb-0">Database backup finished successfully</p>
+                            <small class="text-muted">4 hours ago</small>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <i class="mdi mdi-circle bg-warning timeline-icon"></i>
+                        <div class="timeline-item-info">
+                            <h5 class="font-size-15 mb-1">High CPU usage alert</h5>
+                            <p class="text-muted mb-0">Server vm-db-02 CPU usage above 85%</p>
+                            <small class="text-muted">6 hours ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-primary">
+                        <i class="mdi mdi-plus me-1"></i>Create VM
+                    </button>
+                    <button type="button" class="btn btn-outline-primary">
+                        <i class="mdi mdi-backup-restore me-1"></i>Backup Data
+                    </button>
+                    <button type="button" class="btn btn-outline-primary">
+                        <i class="mdi mdi-monitor-dashboard me-1"></i>System Monitor
+                    </button>
+                    <button type="button" class="btn btn-outline-primary">
+                        <i class="mdi mdi-cog me-1"></i>Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">System Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>CPU Usage</span>
+                    <span class="text-success">45%</span>
+                </div>
+                <div class="progress mb-3" style="height: 8px;">
+                    <div class="progress-bar bg-success" style="width: 45%"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Memory</span>
+                    <span class="text-warning">68%</span>
+                </div>
+                <div class="progress mb-3" style="height: 8px;">
+                    <div class="progress-bar bg-warning" style="width: 68%"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Storage</span>
+                    <span class="text-info">32%</span>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-info" style="width: 32%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.timeline-alt {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -22px;
+    top: 3px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.timeline-alt::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #e3e6f0;
+}
+
+.avatar-sm {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+{% endblock %}
