@@ -1,43 +1,20 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.urls import reverse_lazy
 
 
 def user_login(request):
-    """
-    User login view that displays login form and handles authentication.
-    """
+    """Render the login page. Authentication is handled via API calls."""
     if request.user.is_authenticated:
         return redirect('index')
-    
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'Welcome back, {user.username}!')
-                next_url = request.GET.get('next', 'index')
-                return redirect(next_url)
-            else:
-                messages.error(request, 'Invalid username or password.')
-    else:
-        form = AuthenticationForm()
-    
-    return render(request, 'users/login.html', {'form': form})
+
+    return render(request, 'users/login.html')
 
 
 def user_logout(request):
-    """
-    User logout view that logs out the user and displays confirmation.
-    """
-    logout(request)
+    """Display logout confirmation page. Session termination handled via API."""
     messages.success(request, 'You have been successfully logged out.')
     return render(request, 'users/logout.html')
 
