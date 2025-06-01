@@ -5,7 +5,7 @@ function getCookie(name) {
   return '';
 }
 
-fetch('/api/logout', {
+fetch(`${window.IDENTITY_BASE}/logout`, {
   method: 'POST',
   headers: {
     'X-CSRFToken': getCookie('csrftoken')

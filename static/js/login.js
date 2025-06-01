@@ -10,7 +10,7 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
-  const resp = await fetch('/api/login', {
+  const resp = await fetch(`${window.IDENTITY_BASE}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

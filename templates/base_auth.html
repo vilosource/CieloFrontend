@@ -13,6 +13,10 @@
         <link href="{% static 'material_theme/css/app.min.css' %}" rel="stylesheet" type="text/css" id="app-stylesheet" />
         <link href="{% static 'material_theme/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
         <script src="{% static 'material_theme/js/config.js' %}"></script>
+        <script>
+          window.IDENTITY_BASE = "{{ IDENTITY_API_URL }}";
+          window.BILLING_BASE = "{{ BILLING_API_URL }}";
+        </script>
         {% block extra_head %}{% endblock %}
     </head>
     <body>
