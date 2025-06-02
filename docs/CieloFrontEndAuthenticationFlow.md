@@ -8,7 +8,7 @@ This document describes how the CieloFrontend authenticates a user via the Cielo
    The user visits the login page rendered by Django at `/users/login/` (template: `templates/users/login.html`).
 
 2. **JavaScript-Driven API Call**
-   A JavaScript file (`static/js/login.js`) captures the login form submission. It prevents the default form behavior and sends a `POST` request to `http://identity.cielo.test/login`, containing the username and password as JSON. The CSRF token is included in the request header.
+   A JavaScript file (`static/js/login.js`) captures the login form submission. It prevents the default form behavior and sends a `POST` request to `http://identity.cielo.test/api/login`, containing the username and password as JSON. The CSRF token is included in the request header.
 
 3. **Backend Authentication**
    The `/api/login` endpoint is proxied or routed to the `CieloIdentityProvider`, where Django's `AuthenticationService` verifies credentials. If valid, Django's `login()` method creates a session and returns user details.
@@ -19,7 +19,7 @@ This document describes how the CieloFrontend authenticates a user via the Cielo
 ### Logout Flow
 
 1. **Logout Request**
-   JavaScript in `static/js/logout.js` sends a `POST` request to `http://identity.cielo.test/logout` using the stored session cookie and CSRF token.
+   JavaScript in `static/js/logout.js` sends a `POST` request to `http://identity.cielo.test/api/logout` using the stored session cookie and CSRF token.
 
 2. **Session Termination**
    The identity provider receives the request and calls Django's `logout()` method to terminate the session.
@@ -29,7 +29,7 @@ This document describes how the CieloFrontend authenticates a user via the Cielo
 
 ### Session Verification
 
-Protected pages include a small script (`static/js/session.js`) which runs on load and sends a `GET` request to `http://identity.cielo.test/session`. If the response indicates the user is not authenticated, the browser is redirected to `/users/login/`.
+Protected pages include a small script (`static/js/session.js`) which runs on load and sends a `GET` request to `http://identity.cielo.test/api/session`. If the response indicates the user is not authenticated, the browser is redirected to `/users/login/`.
 
 Sessions are stored in a shared cookie scoped to `.cielo.test` so authentication persists across all subdomains.
 
