@@ -19,11 +19,9 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
 }
 
-
 print("Development settings loaded.")
 print("Debug mode is ON.")
 print(f"Identity API URL: {IDENTITY_API_URL}")
 print(f"Billing API URL: {BILLING_API_URL}")
-# Static files (CSS, JavaScript, Images)
 print("Static files will be served from the 'static' directory.")
 print(f"Templates will be loaded from: {TEMPLATES[0]['DIRS']}")
