@@ -11,6 +11,7 @@ fetch(`${window.IDENTITY_BASE}/logout`, {
     'X-CSRFToken': getCookie('csrftoken')
   },
   credentials: 'same-origin'
-}).then(() => {
-  // optional success handling
+}).finally(() => {
+  document.cookie = 'sessionid=; Max-Age=0; path=/; domain=.cielo.test';
+  window.location.href = '/users/login/';
 });
