@@ -4,3 +4,4 @@ django-extensions
 django-environ
 psycopg2-binary
 pydantic
+django-debug-toolbar
