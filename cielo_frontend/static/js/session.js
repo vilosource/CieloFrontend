@@ -1,6 +1,6 @@
 (async function() {
   try {
-    const resp = await fetch(`${window.IDENTITY_BASE}/session`, {
+    const resp = await fetch(`${window.IDENTITY_BASE}/api/session`, {
       credentials: 'include'
     });
     if (!resp.ok) {

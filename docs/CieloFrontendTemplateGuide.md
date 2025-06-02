@@ -2,7 +2,7 @@
 
 This document explains how the `cielo_frontend` Django application is designed and how developers should work within it. The frontend is structured around **Django templates** that render the layout and structure of pages, while **JavaScript is used to dynamically populate content by consuming REST APIs** exposed by backend CIELO services.
 
-The included JavaScript files and templates are illustrative examples. They demonstrate how to interact with the IdentityProvider APIs (`http://identity.cielo.test/login`, `http://identity.cielo.test/logout`, and `http://identity.cielo.test/session`) but can be adapted to suit your needs.
+The included JavaScript files and templates are illustrative examples. They demonstrate how to interact with the IdentityProvider APIs (`http://identity.cielo.test/api/login`, `http://identity.cielo.test/api/logout`, and `http://identity.cielo.test/api/session`) but can be adapted to suit your needs.
 
 ---
 
@@ -93,11 +93,11 @@ All data displayed in templates comes from REST APIs:
 * Authentication is handled via session (set on login)
 * No tokens or API keys are exposed client-side
 * You can use `fetch`, `axios`, or any JS method for API calls
-* Protected pages should verify the active session by calling `http://identity.cielo.test/session` on load and redirect to `/users/login/` if the session is not valid.
+* Protected pages should verify the active session by calling `http://identity.cielo.test/api/session` on load and redirect to `/users/login/` if the session is not valid.
 * Core authentication endpoints:
-  * `POST http://identity.cielo.test/login`
-  * `POST http://identity.cielo.test/logout`
-  * `GET  http://identity.cielo.test/session`
+  * `POST http://identity.cielo.test/api/login`
+  * `POST http://identity.cielo.test/api/logout`
+  * `GET  http://identity.cielo.test/api/session`
 
 ---
 
