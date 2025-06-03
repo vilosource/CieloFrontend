@@ -17,7 +17,7 @@ form.addEventListener('submit', async (e) => {
       'X-CSRFToken': getCookie('csrftoken')
     },
     body: JSON.stringify(data),
-    credentials: 'same-origin'
+    credentials: 'include'
   });
   if (resp.ok) {
     window.location.href = '/';
