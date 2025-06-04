@@ -21,7 +21,8 @@
     <!-- Theme Config Js -->
     <script src="{% static 'material_theme/js/config.js' %}"></script>
     <script>
-        window.IDENTITY_BASE = 'http://identity.cielo.test';
+        window.IDENTITY_BASE = "{{ IDENTITY_API_URL }}";
+        window.BILLING_BASE = "{{ BILLING_API_URL }}";
     </script>
 
     {% block extra_head %}{% endblock %}
@@ -87,6 +88,9 @@
 
     <!-- App js -->
     <script src="{% static 'material_theme/js/app.min.js' %}"></script>
+
+    <!-- Auth js -->
+    <script src="{% static 'js/auth.js' %}"></script>
 
     {% block extra_js %}{% endblock %}
 

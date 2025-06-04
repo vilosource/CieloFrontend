@@ -6,3 +6,5 @@ psycopg2-binary
 pydantic
 django-debug-toolbar
 django-redis
+djangorestframework-simplejwt>=5.2.0
+PyJWT>=2.6.0

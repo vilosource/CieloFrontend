@@ -3,13 +3,21 @@ import os
 
 DEBUG = True
 
-SESSION_COOKIE_DOMAIN = ".cielo.test"
+# Session configuration to match Identity Provider
+SESSION_COOKIE_DOMAIN = ".dev.viloforge.com"
+SESSION_COOKIE_NAME = 'cielo_sessionid'  # Match Identity Provider
 SESSION_COOKIE_PATH = "/"
-ALLOWED_HOSTS = [".cielo.test", "localhost", "127.0.0.1"]
+SESSION_COOKIE_SAMESITE = 'None'  # None required for cross-origin HTTPS
+SESSION_COOKIE_SECURE = True  # Required for HTTPS and SameSite=None
+SESSION_COOKIE_HTTPONLY = False  # Allow JavaScript access for cross-origin
+SESSION_SAVE_EVERY_REQUEST = True  # Ensure session persistence
+SESSION_COOKIE_AGE = 86400  # 24 hours - match Identity Provider
 
-# Backend API URLs
-IDENTITY_API_URL = os.getenv("IDENTITY_API_URL", "http://identity.cielo.test")
-BILLING_API_URL = os.getenv("BILLING_API_URL", "http://billing.cielo.test")
+ALLOWED_HOSTS = [".dev.viloforge.com", "localhost", "127.0.0.1"]
+
+# Backend API URLs - Updated for HTTPS domains
+IDENTITY_API_URL = os.getenv("IDENTITY_API_URL", "https://identity.dev.viloforge.com")
+BILLING_API_URL = os.getenv("BILLING_API_URL", "https://billing.dev.viloforge.com")
 
 # Django Debug Toolbar
 INSTALLED_APPS = [app for app in INSTALLED_APPS if app != 'debug_toolbar'] + ['debug_toolbar']
