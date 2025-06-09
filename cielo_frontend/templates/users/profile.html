@@ -21,18 +21,18 @@
                     <center class="mt-4">
                         {# Placeholder for a profile picture - using an icon for now #}
                         <i class="mdi mdi-account-circle text-muted" style="font-size: 100px;"></i>
-                        <h4 class="card-title mt-2">{{ user.get_full_name|default:user.username }}</h4>
-                        <h6 class="card-subtitle text-muted">{{ user.email }}</h6>
+                        <h4 class="card-title mt-2">{{ profile.first_name }} {{ profile.last_name }}</h4>
+                        <h6 class="card-subtitle text-muted">{{ profile.email }}</h6>
                     </center>
                 </div>
                 <div><hr class="my-0"></div>
                 <div class="card-body">
                     <small class="text-muted">{% translate "Email address" %}</small>
-                    <h6>{{ user.email }}</h6>
+                    <h6>{{ profile.email }}</h6>
                     <small class="text-muted pt-3 db">{% translate "Username" %}</small>
-                    <h6>{{ user.username }}</h6>
+                    <h6>{{ profile.username }}</h6>
                     <small class="text-muted pt-3 db">{% translate "Date Joined" %}</small>
-                    <h6>{{ user.date_joined|date:"N j, Y" }}</h6>
+                    <h6>{{ profile.date_joined }}</h6>
                 </div>
             </div>
         </div>
@@ -46,37 +46,37 @@
                         <div class="form-group row mb-3">
                             <label for="username" class="col-sm-3 text-sm-end control-label col-form-label">{% translate "Username" %}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="username" value="{{ user.username }}" readonly>
+                                <input type="text" class="form-control" id="username" value="{{ profile.username }}" readonly>
                             </div>
                         </div>
                         <div class="form-group row mb-3">
                             <label for="email" class="col-sm-3 text-sm-end control-label col-form-label">{% translate "Email" %}</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="email" value="{{ user.email }}" readonly>
+                                <input type="email" class="form-control" id="email" value="{{ profile.email }}" readonly>
                             </div>
                         </div>
                         <div class="form-group row mb-3">
                             <label for="first_name" class="col-sm-3 text-sm-end control-label col-form-label">{% translate "First Name" %}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="first_name" value="{{ user.first_name|default:'' }}" readonly>
+                                <input type="text" class="form-control" id="first_name" value="{{ profile.first_name }}" readonly>
                             </div>
                         </div>
                         <div class="form-group row mb-3">
                             <label for="last_name" class="col-sm-3 text-sm-end control-label col-form-label">{% translate "Last Name" %}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="last_name" value="{{ user.last_name|default:'' }}" readonly>
+                                <input type="text" class="form-control" id="last_name" value="{{ profile.last_name }}" readonly>
                             </div>
                         </div>
                         <div class="form-group row mb-3">
                             <label for="date_joined" class="col-sm-3 text-sm-end control-label col-form-label">{% translate "Date Joined" %}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="date_joined" value="{{ user.date_joined|date:"F j, Y, P" }}" readonly>
+                                <input type="text" class="form-control" id="date_joined" value="{{ profile.date_joined }}" readonly>
                             </div>
                         </div>
                         <div class="form-group row mb-3">
                             <label for="last_login" class="col-sm-3 text-sm-end control-label col-form-label">{% translate "Last Login" %}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="last_login" value="{{ user.last_login|date:"F j, Y, P"|default:'Never' }}" readonly>
+                                <input type="text" class="form-control" id="last_login" value="{{ profile.last_login }}" readonly>
                             </div>
                         </div>
                         <div class="border-top mt-4 pt-3">
