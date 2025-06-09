@@ -128,39 +128,47 @@
                         <li class="dropdown notification-list topbar-dropdown">
                             <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <img src="{% static 'material_theme/images/users/avatar-1.jpg' %}" alt="user-image" class="rounded-circle">
-                                <span class="pro-user-name ms-1">
-                                    {% if user.is_authenticated %}{{ user.username }}{% else %}Guest{% endif %} <i class="mdi mdi-chevron-down"></i> 
+                                <span class="pro-user-name ms-1" id="user-display-name">
+                                    Guest <i class="mdi mdi-chevron-down"></i> 
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
                                 <!-- item-->
                                 <div class="dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome !</h6>
-                                </div>                                {% if user.is_authenticated %}
-                                <!-- item-->
-                                <a href="/users/profile/" class="dropdown-item notify-item">
-                                    <i class="ri-settings-3-line"></i>
-                                    <span>Profile</span>
-                                </a>
-                                <!-- item-->
-                                <a href="/users/change-password/" class="dropdown-item notify-item">
-                                    <i class="ri-settings-3-line"></i>
-                                    <span>Change Password</span>
-                                </a>
+                                </div>
+                                
+                                <!-- Authenticated user items -->
+                                <div data-auth="required">
+                                    <!-- item-->
+                                    <a href="/users/profile/" class="dropdown-item notify-item">
+                                        <i class="ri-settings-3-line"></i>
+                                        <span>Profile</span>
+                                    </a>
+                                    <!-- item-->
+                                    <a href="/users/change-password/" class="dropdown-item notify-item">
+                                        <i class="ri-settings-3-line"></i>
+                                        <span>Change Password</span>
+                                    </a>
 
-                                <div class="dropdown-divider"></div>
+                                    <div class="dropdown-divider"></div>
 
-                                <!-- item-->
-                                <a href="/users/logout/" class="dropdown-item notify-item">
-                                    <i class="ri-logout-box-line"></i>
-                                    <span>Logout</span>
-                                </a>
-                                {% else %}
-                                 <a href="/users/login/" class="dropdown-item notify-item">
-                                    <i class="ri-login-box-line"></i>
-                                    <span>Login</span>
-                                </a>
-                                {% endif %}
+                                    <!-- item-->
+                                    <a href="#" class="dropdown-item notify-item" onclick="handleLogout(); return false;">
+                                        <i class="ri-logout-box-line"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </div>
+                                
+                                <!-- Guest user items -->
+                                <div data-auth="guest">
+                                    <a href="/users/login/" class="dropdown-item notify-item">
+                                        <i class="ri-login-box-line"></i>
+                                        <span>Login</span>
+                                    </a>
+                                </div>
+
+                            </div>
     
                             </div>
                         </li>
@@ -483,6 +491,80 @@
         <!-- Auth js -->
         <script src="{% static 'js/auth.js' %}"></script>
         <script src="{% static 'js/session.js' %}"></script>
+        
+        <!-- User display update script -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateUserDisplay() {
+                const userDisplayElement = document.getElementById('user-display-name');
+                const profileDropdown = document.querySelector('.profile-dropdown');
+                
+                if (!userDisplayElement || !profileDropdown) return;
+                
+                // Check if user is authenticated via JWT
+                const accessToken = localStorage.getItem('access_token');
+                const userData = localStorage.getItem('user');
+                
+                if (accessToken && userData) {
+                    try {
+                        const user = JSON.parse(userData);
+                        const username = user.username || user.email || 'User';
+                        
+                        // Update the display name
+                        userDisplayElement.innerHTML = `${username} <i class="mdi mdi-chevron-down"></i>`;
+                        
+                        // Show authenticated user menu items
+                        const authItems = profileDropdown.querySelectorAll('[data-auth="required"]');
+                        const guestItems = profileDropdown.querySelectorAll('[data-auth="guest"]');
+                        
+                        authItems.forEach(item => item.style.display = 'block');
+                        guestItems.forEach(item => item.style.display = 'none');
+                        
+                    } catch (e) {
+                        console.error('Error parsing user data:', e);
+                        showGuestState();
+                    }
+                } else {
+                    showGuestState();
+                }
+            }
+            
+            function showGuestState() {
+                const userDisplayElement = document.getElementById('user-display-name');
+                const profileDropdown = document.querySelector('.profile-dropdown');
+                
+                userDisplayElement.innerHTML = 'Guest <i class="mdi mdi-chevron-down"></i>';
+                
+                // Show guest menu items, hide authenticated items
+                const authItems = profileDropdown.querySelectorAll('[data-auth="required"]');
+                const guestItems = profileDropdown.querySelectorAll('[data-auth="guest"]');
+                
+                authItems.forEach(item => item.style.display = 'none');
+                guestItems.forEach(item => item.style.display = 'block');
+            }
+            
+            // Initial update
+            updateUserDisplay();
+            
+            // Listen for storage changes (when user logs in/out in another tab)
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'access_token' || e.key === 'user') {
+                    updateUserDisplay();
+                }
+            });
+        });
+        
+        // Global logout handler
+        function handleLogout() {
+            // Clear JWT tokens and user data
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            localStorage.removeItem('user');
+            
+            // Redirect to login page
+            window.location.href = '/users/login/';
+        }
+        </script>
 
         {% block extra_js %}{% endblock %}
         

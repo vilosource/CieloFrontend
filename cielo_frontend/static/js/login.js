@@ -32,6 +32,12 @@ form.addEventListener('submit', async (e) => {
       localStorage.setItem('user', JSON.stringify(tokens.user));
     }
     
+    // Trigger storage event for other tabs/windows
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'access_token',
+      newValue: tokens.access
+    }));
+    
     window.location.href = '/';
   } else {
     document.getElementById('login-error').innerText = 'Invalid credentials.';
