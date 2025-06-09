@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def user_login(request):
@@ -19,33 +21,41 @@ def user_logout(request):
     return render(request, 'users/logout.html')
 
 
-@login_required
-def user_profile(request):
-    """
-    User profile view that displays user information.
-    """
-    context = {
-        'page_title': 'User Profile',
-        'user': request.user,
-        'cielo_navigation_items': [
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    """Demo user profile page."""
+
+    template_name = 'users/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'User Profile'
+        # Placeholder data; will come from API calls in the future
+        context['profile'] = {
+            'username': 'jdoe',
+            'email': 'jdoe@example.com',
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'date_joined': 'Jan 1, 2024',
+            'last_login': 'Jan 3, 2024',
+        }
+        context['cielo_navigation_items'] = [
             {
                 'label': 'Dashboard',
                 'url': '/',
-                'icon_class': 'mdi mdi-view-dashboard-outline'
+                'icon_class': 'mdi mdi-view-dashboard-outline',
             },
             {
                 'label': 'Profile',
                 'url': '/users/profile/',
-                'icon_class': 'mdi mdi-account-circle'
+                'icon_class': 'mdi mdi-account-circle',
             },
             {
                 'label': 'Settings',
                 'url': '#',
-                'icon_class': 'mdi mdi-cog-outline'
-            }
+                'icon_class': 'mdi mdi-cog-outline',
+            },
         ]
-    }
-    return render(request, 'users/profile.html', context)
+        return context
 
 
 @login_required
